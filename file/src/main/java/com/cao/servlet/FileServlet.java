@@ -1,6 +1,4 @@
 package com.cao.servlet;
-
-import com.sun.xml.internal.bind.v2.schemagen.XmlSchemaGenerator;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.ProgressListener;
@@ -98,10 +96,11 @@ public class FileServlet extends HttpServlet {
                 if (!realPathFile.exists()) {
                     realPathFile.mkdir();
                 }
+
                 InputStream inputStream = fileItem.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(realPath + "/" + fileName);
+                BufferedOutputStream fileOutputStream = new BufferedOutputStream(new FileOutputStream(realPath + "/" + fileName));
                 byte[] buffer = new byte[1024 * 1024];
-                int len= 0;
+                int len;
                 while((len = inputStream.read(buffer)) > 0) {
                     fileOutputStream.write(buffer, 0, len);
                 }
